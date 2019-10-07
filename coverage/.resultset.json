@@ -3,19 +3,32 @@
     "coverage": {
       "/Users/student/Google Drive/Coding/Makers/Week4/Bookmark-Manager/app.rb": [
         1,
-        null,
         1,
         null,
         1,
-        1,
         null,
-        1,
         1,
         1,
         null,
         null,
+        1,
+        1,
+        1,
+        null,
+        null,
         null,
         1,
+        null,
+        null
+      ],
+      "/Users/student/Google Drive/Coding/Makers/Week4/Bookmark-Manager/lib/bookmarks.rb": [
+        1,
+        null,
+        1,
+        1,
+        2,
+        2,
+        10,
         null,
         null
       ],
@@ -24,20 +37,8 @@
         null,
         1,
         null,
-        2,
-        null,
         1,
         1,
-        null,
-        null,
-        null
-      ],
-      "/Users/student/Google Drive/Coding/Makers/Week4/Bookmark-Manager/lib/bookmarks.rb": [
-        1,
-        1,
-        null,
-        2,
-        null,
         null,
         null,
         null
@@ -61,6 +62,6 @@
         null
       ]
     },
-    "timestamp": 1570455864
+    "timestamp": 1570461862
   }
 }

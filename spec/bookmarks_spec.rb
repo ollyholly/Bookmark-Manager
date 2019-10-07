@@ -2,10 +2,8 @@ require 'bookmarks'
 
 describe Bookmarks do
 
-  let(:bookmark_list) { ["http://google.com", "http://facebook.com"] }
-
   it 'returns a list of bookmarks' do
-    expect(described_class.all).to eq bookmark_list
+    expect(Bookmarks.all).to include "http://www.google.com"
   end
 
 end
