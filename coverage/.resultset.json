@@ -38,6 +38,27 @@
         null,
         null,
         null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
         null
       ],
       "/Users/student/Google Drive/Coding/Makers/Week4/Bookmark-Manager/spec/database_helpers.rb": [
@@ -60,8 +81,42 @@
         null,
         null
       ],
+      "/Users/student/Google Drive/Coding/Makers/Week4/Bookmark-Manager/spec/features/deleting_a_bookmark_spec.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/student/Google Drive/Coding/Makers/Week4/Bookmark-Manager/spec/features/test_spec.rb": [
         1,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/student/Google Drive/Coding/Makers/Week4/Bookmark-Manager/spec/features/updating_a_bookmark_spec.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
         1,
         1,
         1,
@@ -87,6 +142,6 @@
         null
       ]
     },
-    "timestamp": 1570528358
+    "timestamp": 1570568892
   }
 }
