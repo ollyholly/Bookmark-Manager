@@ -4,6 +4,8 @@ require 'database_helpers'
 
 describe Bookmark do
 
+  let(:comment_class) { double(:comment_class) }
+
 describe '#.all' do
   it 'returns a list of bookmarks' do
 
@@ -25,12 +27,17 @@ end
 describe ".create" do
   it 'creates a new bookmark' do
     bookmark = Bookmark.create(url: 'http://testbookmark.com', title: 'Test Bookmark')
-    persisted_data = persisted_data(id: bookmark.id)
+    persisted_data = persisted_data(id: bookmark.id, table: 'bookmarks')
 
     expect(bookmark).to be_a Bookmark
     expect(bookmark.id).to eq persisted_data.first['id']
     expect(bookmark.title).to eq 'Test Bookmark'
     expect(bookmark.url).to eq 'http://testbookmark.com'
+  end
+
+  it 'does not create a new bookmark if the URL is not valid' do
+    Bookmark.create(url: 'not a real bookmark', title: 'not a real bookmark')
+    expect(Bookmark.all).not_to include 'not a real bookmark'
   end
 end
 
@@ -65,6 +72,24 @@ end
       expect(result.id).to eq bookmark.id
       expect(result.title).to eq 'Makers Academy'
       expect(result.url).to eq 'http://www.makersacademy.com'
+    end
+  end
+
+  describe '#comments' do
+    it 'calls .where on the Comment class' do
+      bookmark = Bookmark.create(title: 'Makers Academy', url: 'http://www.makersacademy.com')
+      expect(comment_class).to receive(:where).with(bookmark_id: bookmark.id)
+
+      bookmark.comments(comment_class)
+    end
+  end
+
+  describe '#comments' do
+    it 'calls .where on the Comment class' do
+      bookmark = Bookmark.create(title: 'Makers Academy', url: 'http://www.makersacademy.com')
+      expect(comment_class).to receive(:where).with(bookmark_id: bookmark.id)
+  
+      bookmark.comments(comment_class)
     end
   end
 

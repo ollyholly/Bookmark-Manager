@@ -1,4 +1,6 @@
 require_relative 'database_connection'
+require 'uri'
+require_relative './comment'
 
 class Bookmark
 
@@ -14,6 +16,8 @@ class Bookmark
   end
 
   def self.create(url:, title:)
+    return false unless is_url?(url)
+    
     result = DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES('#{url}', '#{title}') RETURNING id, title, url;")
     Bookmark.new(
       url: result[0]['url'],
@@ -44,6 +48,10 @@ class Bookmark
     )
   end
 
+  def comments(comment_class = Comment)
+    comment_class.where(bookmark_id: id)
+  end
+
   attr_reader :id, :title, :url
 
   def initialize(id:, title:, url:)
@@ -51,4 +59,11 @@ class Bookmark
     @title = title
     @url = url
   end
+
+  private
+
+  def self.is_url?(url)
+    url =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]
+  end
+
 end

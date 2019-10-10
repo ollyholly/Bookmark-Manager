@@ -1,9 +1,12 @@
 require 'sinatra/base'
+require 'sinatra/flash'
 require './lib/bookmark'
 require './lib/database_connection_setup'
+require './lib/comment'
 
 class BookmarkManager < Sinatra::Base
   enable :sessions, :method_override
+  register Sinatra::Flash
 
   get '/' do
     'Hello world'
@@ -15,7 +18,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/bookmarks' do
-    Bookmark.create(url: params[:url], title: params[:title])
+    flash[:notice] = "Please submit a valid URL" unless Bookmark.create(url: params[:url], title: params[:title])
     redirect '/bookmarks'
   end
 
@@ -29,16 +32,23 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks/:id/edit' do
-    # @bookmark_id = params[:id]
     @bookmark = Bookmark.find(id: params[:id])
     erb :'bookmarks/edit'
   end
   
   patch '/bookmarks/:id' do
     Bookmark.update(id: params[:id], url: params[:url], title: params[:title])
-    connection = PG.connect(dbname: 'bookmark_manager_test')
-    connection.exec("UPDATE bookmarks SET url = '#{params[:url]}', title = '#{params[:title]}' WHERE id = '#{params[:id]}'")
     redirect :'/bookmarks'
+  end
+
+  get '/bookmarks/:id/comments/new' do
+    @bookmark_id = params[:id]
+    erb :'comments/new'
+  end
+
+  post '/bookmarks/:id/comments' do
+    Comment.create(text: params[:comment], bookmark_id: params[:id])
+    redirect '/bookmarks'
   end
 
   # start the server if ruby file executed directly
