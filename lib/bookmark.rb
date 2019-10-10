@@ -1,6 +1,7 @@
 require_relative 'database_connection'
 require 'uri'
 require_relative './comment'
+require_relative './tag'
 
 class Bookmark
 
@@ -17,7 +18,7 @@ class Bookmark
 
   def self.create(url:, title:)
     return false unless is_url?(url)
-    
+
     result = DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES('#{url}', '#{title}') RETURNING id, title, url;")
     Bookmark.new(
       url: result[0]['url'],
@@ -50,6 +51,17 @@ class Bookmark
 
   def comments(comment_class = Comment)
     comment_class.where(bookmark_id: id)
+  end
+
+  def tags(tag_class = Tag)
+    tag_class.where(bookmark_id: id)
+  end
+
+  def self.where(tag_id:)
+    result = DatabaseConnection.query("SELECT id, title, url FROM bookmarks_tags INNER JOIN bookmarks ON bookmarks.id = bookmarks_tags.bookmark_id WHERE bookmarks_tags.tag_id = '#{tag_id}';")
+    result.map do |bookmark|
+      Bookmark.new(id: bookmark['id'], title: bookmark['title'], url: bookmark['url'])
+    end
   end
 
   attr_reader :id, :title, :url
