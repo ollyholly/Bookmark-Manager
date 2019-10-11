@@ -49,3 +49,7 @@
 <h2>
   <%= flash[:notice] %>
 </h2>
+
+<form action="/sessions/destroy" method="post">
+  <input type="submit" value="Sign out" />
+</form>
